@@ -1,0 +1,51 @@
+{
+  "name": "boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "client": "cd client && npm start",
+    "server": "nodemon --ignore client/ --ignore .git --ignore /__tests__ server.js | pino-pretty -i hostname,pid -t",
+    "start-all": "concurrently \"npm run client\" \"npm run server\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .js",
+    "build": "cd client && npm run build",
+    "heroku-prebuild": "cd client && npm install",
+    "start": "node index.js",
+    "lint-fix": "eslint --fix . --ext .js",
+    "lint-fix-dry": "eslint --fix-dry-run . --ext .js",
+    "install-client": "cd ./client && npm install",
+    "install-server": "npm install",
+    "install-all": "concurrently \"npm run install-client\" \"npm run install-server\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doras100p/WhatToDo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/doras100p/WhatToDo/issues"
+  },
+  "homepage": "https://github.com/doras100p/WhatToDo#readme",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.2.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "graphql": "^14.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.4",
+    "node-rsa": "^1.0.7",
+    "passport-local-mongoose": "^6.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-react": "^7.19.0"
+  }
+}
