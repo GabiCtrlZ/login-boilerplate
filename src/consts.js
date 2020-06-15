@@ -9,7 +9,7 @@ const {
   MONGO_AUTHSOURCE,
   MONGO_POOL_SIZE = 100,
   LOCAL_DEV,
-  SECRET,
+  SECRET = 'defaultSecret',
   DISABLE_COOKIE_SECURITY = false,
 } = process.env
 
