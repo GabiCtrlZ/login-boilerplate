@@ -45,7 +45,6 @@ function Login(props) {
   const handleSubmit = () => {
     onLogin({ email, password })
   }
-  console.log(props.location)
 
   if (isLoggedIn) return <Redirect to={from} />
   return (
