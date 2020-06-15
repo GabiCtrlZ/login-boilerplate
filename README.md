@@ -1,6 +1,6 @@
-# WhatToDoApp
+# Login Boilerplate
 
-WhatToDoApp
+A simple front and back project ready to clone, got a login system with users.
 
 ## Configuration
 
