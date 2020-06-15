@@ -41,7 +41,7 @@ const MONGO_URI = (() => {
   return URI
 })()
 
-const COOKIE_NAME = process.env.COOKIE_NAME || 'WTD-App'
+const COOKIE_NAME = process.env.COOKIE_NAME || 'default-App'
 
 const COOKIE_OPTIONS = {
   maxAge: 30 * 24 * 60 * 60 * 1000,
