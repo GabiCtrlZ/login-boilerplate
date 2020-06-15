@@ -33,8 +33,8 @@ function AppRouter(props) {
   return (
     <Router>
       <Suspense fallback={<LegoLoading open={true} />}>
-        <Route exact path='/' render={() => (isLoggedIn ? <Redirect to={`/main`} /> : <Redirect to={`/login`} />)} />
-        <Route exact path='/login' component={Login} />
+        <Route path='/' render={() => (isLoggedIn ? <Redirect to={`/main`} /> : <Redirect to={`/login`} />)} />
+        <Route path='/login' component={Login} />
         <PrivateRoute path='/main' isLoggedIn={isLoggedIn} component={Comp} />
         <LegoLoading open={isLoading} />
       </Suspense>
