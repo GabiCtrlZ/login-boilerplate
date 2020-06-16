@@ -38,6 +38,7 @@
     "express-graphql": "^0.9.0",
     "graphql": "^14.6.0",
     "jsonwebtoken": "^8.5.1",
+    "log4js": "^6.3.0",
     "mongoose": "^5.9.4",
     "node-rsa": "^1.0.7",
     "passport-local-mongoose": "^6.0.1"

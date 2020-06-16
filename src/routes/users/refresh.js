@@ -1,7 +1,8 @@
 module.exports = async (req, res) => {
+  const { logger } = req
   try {
     const { userId } = req.user
-    console.log('getting user data')
+    logger.info('getting user data')
 
     return res.json({
       success: true,
@@ -9,7 +10,7 @@ module.exports = async (req, res) => {
       },
     })
   } catch (e) {
-    console.log('error with refresh route', { message: e.toString() })
+    logger.info('error with refresh route', { message: e.toString() })
 
     return res.status(500).json({
       success: false,

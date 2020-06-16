@@ -8,6 +8,7 @@ const {
 } = require('../consts')
 
 const cookie = async (req, res, next) => {
+  const { logger } = req
   try {
     const options = {
       ...COOKIE_OPTIONS,
@@ -18,11 +19,11 @@ const cookie = async (req, res, next) => {
       options.secure = true
     }
 
-    console.log('creating cookie')
+    logger.info('creating cookie')
 
     const token = await jwt.sign(req.user)
 
-    console.log('finished creating cookie')
+    logger.info('finished creating cookie')
 
     res.cookie(COOKIE_NAME, token, options)
     next()

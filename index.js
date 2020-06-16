@@ -3,13 +3,15 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const path = require('path')
 
+const { createExpressLogger, logger } = require('./src/lib/logger')
 const initDb = require('./src/lib/init-db')
 const api = require('./src/routes')
 
 const { PORT, LOCAL_DEV } = require('./src/consts')
 
+
 const reactDevCookies = (app) => {
-  console.log('allowing access for development')
+  logger.info('allowing access for development')
   app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
@@ -27,6 +29,7 @@ const bootstrap = async (app) => {
   app.use(bodyParser.json({ limit: '50mb', extended: true }))
   app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
   app.use(cookieParser())
+  createExpressLogger(app)
 
   if (LOCAL_DEV) {
     reactDevCookies(app)
@@ -39,7 +42,7 @@ const bootstrap = async (app) => {
   app.use('/api/v1', api)
 
   app.listen(PORT, () => {
-    console.log(`Server is listening on port: ${PORT}`)
+    logger.info(`Server is listening on port: ${PORT}`)
   })
 }
 

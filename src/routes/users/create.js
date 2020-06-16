@@ -10,8 +10,9 @@ const userSchame = Joi.object({
 })
 
 module.exports = async (req, res) => {
+  const { logger } = req
   try {
-    console.log('request to create a new user has been made', req.body)
+    logger.info('request to create a new user has been made', req.body)
 
     Joi.assert(req.body, userSchame)
 
@@ -29,7 +30,7 @@ module.exports = async (req, res) => {
       success: true,
     })
   } catch (e) {
-    console.log('request to create a user has failed')
+    logger.info('request to create a user has failed')
     res.status(400).json({
       success: false,
       error: e,

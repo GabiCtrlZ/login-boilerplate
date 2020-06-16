@@ -10,6 +10,7 @@ const schema = Joi.object().keys({
 module.exports = async (req, res, next) => {
   const {
     body,
+    logger,
   } = req
 
   try {
@@ -19,7 +20,7 @@ module.exports = async (req, res, next) => {
       const { details = [] } = e
       const { message } = details[0]
 
-      console.log(`unable to validate schema: ${message}`)
+      logger.info(`unable to validate schema: ${message}`)
 
       return res.status(400).json({
         success: false,
@@ -29,9 +30,9 @@ module.exports = async (req, res, next) => {
     }
 
     const { email, password } = req.body
-    console.log('got the following data', req.body)
+    logger.info('got the following data', req.body)
 
-    console.log(`querying database for user ${email}`)
+    logger.info(`querying database for user ${email}`)
 
     User.findOne({ email: email.toLowerCase() }, (err, user) => {
       if (err) return res.status(500).send({ success: false, message: 'Querying for user have failed' })
@@ -42,12 +43,12 @@ module.exports = async (req, res, next) => {
           userId: response._id,
           email: response.email,
         }
-        console.log('found user successfully, moving on')
+        logger.info('found user successfully, moving on')
         return next()
       })
     })
   } catch (e) {
-    console.log('error with authenticate route', { message: e.toString() })
+    logger.info('error with authenticate route', { message: e.toString() })
 
     return res.status(500).json({
       success: false,
