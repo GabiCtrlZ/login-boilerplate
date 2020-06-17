@@ -38,9 +38,15 @@ function Login(props) {
     isLoggedIn,
     loginError,
     onResetLoginError,
+    isLight,
   } = props
   const classes = useStyles()
   const { from } = props.location.state || { from: { pathname: '/' } }
+  const inputStyle = {
+    WebkitBoxShadow: "0 0 0 1000px white inset",
+    WebkitTextFillColor: isLight ? 'black' : 'white' 
+  }
+  
 
   const handleSubmit = () => {
     onLogin({ email, password })
@@ -60,6 +66,7 @@ function Login(props) {
             Sign in
         </Typography>
           <TextField
+            inputProps={{ style: inputStyle }}
             error={loginError}
             variant="outlined"
             margin="normal"
@@ -75,6 +82,7 @@ function Login(props) {
             onChange={(e) => { setEmail(e.target.value) }}
           />
           <TextField
+            inputProps={{ style: inputStyle }}
             error={loginError}
             variant="outlined"
             margin="normal"
@@ -120,9 +128,10 @@ function Login(props) {
   )
 }
 
-const mapStateToProps = ({ ui }) => ({
+const mapStateToProps = ({ ui, general }) => ({
   isLoggedIn: ui.isLoggedIn,
   loginError: ui.loginError,
+  isLight: general.isLight,
 })
 
 const mapActionsToProps = dispatch => ({
