@@ -1,13 +1,29 @@
 import React, { useState } from 'react'
-import { Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Typography, Container } from '@material-ui/core'
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Typography,
+  Container,
+  InputLabel,
+  InputAdornment,
+  IconButton,
+  OutlinedInput,
+  FormControl
+} from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import Visibility from '@material-ui/icons/Visibility'
+import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import { Redirect } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
+import Toggle from '../Toggle'
 import { bindActionCreators } from 'redux'
 
 import { login, resetLoginError } from '../../actions'
-import Toggle from '../Toggle'
 //TODO: Create registration page
 //TODO: Make return submit when possbile
 const useStyles = makeStyles(theme => ({
@@ -33,6 +49,7 @@ const useStyles = makeStyles(theme => ({
 function Login(props) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const {
     onLogin,
     isLoggedIn,
@@ -44,9 +61,8 @@ function Login(props) {
   const { from } = props.location.state || { from: { pathname: '/' } }
   const inputStyle = {
     WebkitBoxShadow: "0 0 0 1000px white inset",
-    WebkitTextFillColor: isLight ? 'black' : 'white' 
+    WebkitTextFillColor: isLight ? 'black' : 'white'
   }
-  
 
   const handleSubmit = () => {
     onLogin({ email, password })
@@ -64,7 +80,7 @@ function Login(props) {
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
-        </Typography>
+          </Typography>
           <TextField
             inputProps={{ style: inputStyle }}
             error={loginError}
@@ -81,28 +97,40 @@ function Login(props) {
             onFocus={() => onResetLoginError()}
             onChange={(e) => { setEmail(e.target.value) }}
           />
-          <TextField
-            inputProps={{ style: inputStyle }}
-            error={loginError}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={password}
-            onFocus={() => onResetLoginError()}
-            onChange={(e) => { setPassword(e.target.value) }}
-          />
+          <FormControl style={{ marginTop: 10 }} fullWidth variant="outlined" >
+            <InputLabel htmlFor="outlined-adornment-password">Password *</InputLabel>
+            <OutlinedInput
+              inputProps={{ style: inputStyle }}
+              id="outlined-adornment-password"
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              fullWidth
+              required
+              label="Password"
+              onChange={(e) => { setPassword(e.target.value) }}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPassword(!showPassword)}
+                    onMouseDown={(event) => {
+                      event.preventDefault()
+                    }}
+                    edge="end"
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Keep me logged in"
           />
           <Button
             fullWidth
+            disabled={!(email && password)}
             variant="contained"
             color="primary"
             className={classes.submit}
@@ -110,18 +138,6 @@ function Login(props) {
           >
             Sign In
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
         </div>
       </Container>
     </div>
