@@ -61,7 +61,7 @@ function Login(props) {
   const { from } = props.location.state || { from: { pathname: '/' } }
   const inputStyle = {
     WebkitBoxShadow: "0 0 0 1000px white inset",
-    WebkitTextFillColor: isLight ? 'black' : 'white'
+    WebkitTextFillColor: isLight ? 'black' : 'white',
   }
 
   const handleSubmit = () => {
